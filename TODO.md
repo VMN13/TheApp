@@ -1,0 +1,10 @@
+- [x] Исправить импорты в `src/App.jsx` с `./components/*` на `./pages/*`
+- [x] Установить зависимость `react-router-dom`
+- [x] Установить зависимость `axios`
+- [x] Проверить сборку командой `npm run build`
+- [ ] Исправить lint-ошибки в `src/pages/Login.jsx`
+- [ ] Исправить lint-ошибки в `src/pages/Register.jsx`
+- [ ] Исправить lint-ошибки в `src/pages/UserTable.jsx`
+- [ ] Проверить `npm run lint`
+- [ ] Повторно проверить `npm run build`
+- [ ] Обновить TODO со статусом выполнения

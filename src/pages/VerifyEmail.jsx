@@ -1,0 +1,21 @@
+import { useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+
+function VerifyEmail() {
+    const [searchParams] = useSearchParams();
+    const id = searchParams.get('id');
+
+    useEffect(() => {
+        if (id) {
+            window.location.href = `http://localhost:3001/api/verify-email?id=${id}`;
+        }
+    }, [id]);
+
+    return (
+        <div className="min-h-screen flex items-center justify-center bg-gray-100">
+            <p>Подтверждение email...</p>
+        </div>
+    );
+}
+
+export default VerifyEmail;
