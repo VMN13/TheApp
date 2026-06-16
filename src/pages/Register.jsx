@@ -11,7 +11,7 @@ function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-await axios.post('/api/register', formData);
+await axios.post('https://the-app-pi.vercel.app/api/register', formData);
             setSuccess(true);
             setTimeout(() => navigate('/login'), 2000);
 } catch (err) {

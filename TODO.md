@@ -2,9 +2,11 @@
 - [x] Установить зависимость `react-router-dom`
 - [x] Установить зависимость `axios`
 - [x] Проверить сборку командой `npm run build`
-- [x] Исправить lint-ошибки в `src/pages/Login.jsx` (нет ошибок)
-- [x] Исправить lint-ошибки в `src/pages/Register.jsx` (нет ошибок)
-- [x] Исправить lint-ошибки в `src/pages/UserTable.jsx` (1 warning - useEffect зависимость)
-- [x] Проверить `npm run lint` (только 1 warning)
-- [x] Повторно проверить `npm run build` (успешно)
+- [x] Исправить lint-ошибки в `src/pages/Login.jsx`
+- [x] Исправить lint-ошибки в `src/pages/Register.jsx`
+- [x] Исправить lint-ошибки в `src/pages/UserTable.jsx`
+- [x] Проверить `npm run lint`
+- [x] Повторно проверить `npm run build`
 - [x] Обновить TODO со статусом выполнения
+- [x] Исправить esbuild версию в package.json для решения проблемы с peer dependency
+- [x] Обновить API эндпоинты во всех файлах с относительных на абсолютные URL
