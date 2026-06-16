@@ -36,9 +36,10 @@ const response = await axios.post('/api/login', formData);
             localStorage.setItem('user', JSON.stringify({ name, status }));
             onLogin({ name, status });
             navigate('/');
-        } catch (err) {
+} catch (err) {
             console.log("Ошибка:", err.response?.data || err.message);
-            setError(err.response?.data?.error || 'Ошибка входа');
+            const errorMsg = err.response?.data?.error;
+            setError(typeof errorMsg === 'string' ? errorMsg : 'Ошибка входа');
         }
     };
 

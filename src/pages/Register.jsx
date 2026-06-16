@@ -14,8 +14,9 @@ function Register() {
 await axios.post('/api/register', formData);
             setSuccess(true);
             setTimeout(() => navigate('/login'), 2000);
-        } catch (err) {
-            setError(err.response?.data?.error || 'Ошибка регистрации');
+} catch (err) {
+            const errorMsg = err.response?.data?.error;
+            setError(typeof errorMsg === 'string' ? errorMsg : 'Ошибка регистрации');
         }
     };
 
