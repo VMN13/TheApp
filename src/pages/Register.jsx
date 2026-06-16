@@ -11,7 +11,7 @@ function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-await axios.post('https://serverusers-87tl.onrender.com/api/register', formData);
+await axios.post('http://localhost:3001/api/register', formData);
             setSuccess(true);
             setTimeout(() => navigate('/login'), 2000);
         } catch (err) {

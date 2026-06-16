@@ -30,7 +30,7 @@ function UserTable({ user }) {
         }
 
         try {
-const response = await axios.get('https://serverusers-87tl.onrender.com/api/users', getConfig());
+const response = await axios.get('http://localhost:3001/api/users', getConfig());
             setUsers(response.data);
         } catch (err) {
             console.error("Ошибка fetchUsers:", err);
@@ -97,7 +97,7 @@ const response = await axios.get('https://serverusers-87tl.onrender.com/api/user
         if (selected.length === 0) return;
         
         try {
-            await axios.put('https://serverusers-87tl.onrender.com/api/users/status', 
+await axios.put('http://localhost:3001/api/users/status', 
                 { ids: selected, status: 'blocked' }, getConfig());
             setMessage({ type: 'success', text: 'Пользователи заблокированы' });
             fetchUsers();
@@ -113,7 +113,7 @@ const response = await axios.get('https://serverusers-87tl.onrender.com/api/user
         if (selected.length === 0) return;
         
         try {
-            await axios.put('https://serverusers-87tl.onrender.com/api/users/status',
+await axios.put('http://localhost:3001/api/users/status',
                 { ids: selected, status: 'active' }, getConfig());
             setMessage({ type: 'success', text: 'Пользователи разблокированы' });
             fetchUsers();
@@ -129,7 +129,7 @@ const response = await axios.get('https://serverusers-87tl.onrender.com/api/user
         if (selected.length === 0) return;
         
         try {
-            await axios.delete('https://serverusers-87tl.onrender.com/api/users',
+await axios.delete('http://localhost:3001/api/users',
                 { data: { ids: selected }, ...getConfig() });
             setMessage({ type: 'success', text: 'Пользователи удалены' });
             fetchUsers();
@@ -143,7 +143,7 @@ const response = await axios.get('https://serverusers-87tl.onrender.com/api/user
     // important: Удаление неподтвержденных
     const handleDeleteUnverified = async () => {
         try {
-            await axios.delete('https://serverusers-87tl.onrender.com/api/users/unverified', getConfig());
+await axios.delete('http://localhost:3001/api/users/unverified', getConfig());
             setMessage({ type: 'success', text: 'Неподтвержденные удалены' });
             fetchUsers();
             setSelected([]);
