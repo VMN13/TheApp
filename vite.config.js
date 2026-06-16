@@ -9,5 +9,14 @@ export default defineConfig({
   build: {
     minify: 'esbuild',
     sourcemap: false
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://serverusers-87tl.onrender.com',
+        changeOrigin: true,
+        secure: true
+      }
+    }
   }
 })

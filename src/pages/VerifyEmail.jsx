@@ -7,7 +7,7 @@ function VerifyEmail() {
 
     useEffect(() => {
         if (id) {
-window.location.href = `https://the-app-pi.vercel.app/api/verify-email?id=${id}`;
+window.location.href = `/api/verify-email?id=${id}`;
         }
     }, [id]);
 

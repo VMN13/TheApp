@@ -22,7 +22,7 @@ function Login({ onLogin }) {
         
         try {
             console.log("Отправляем:", formData);
-const response = await axios.post('https://the-app-pi.vercel.app/api/login', formData);
+const response = await axios.post('/api/login', formData);
             console.log("Ответ:", response.data);
             
             const { token, name, status } = response.data;
