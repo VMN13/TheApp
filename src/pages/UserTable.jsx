@@ -30,7 +30,7 @@ function UserTable({ user }) {
         }
 
         try {
-const response = await axios.get('https://the-app-pi.vercel.app/api/users', getConfig());
+const response = await axios.get('/api/users', getConfig());
             setUsers(response.data);
         } catch (err) {
             console.error("Ошибка fetchUsers:", err);
@@ -97,7 +97,7 @@ const response = await axios.get('https://the-app-pi.vercel.app/api/users', getC
         if (selected.length === 0) return;
         
         try {
-await axios.put('https://the-app-pi.vercel.app/api/users/status', 
+await axios.put('/api/users/status', 
                 { ids: selected, status: 'blocked' }, getConfig());
             setMessage({ type: 'success', text: 'Пользователи заблокированы' });
             fetchUsers();
@@ -113,7 +113,7 @@ await axios.put('https://the-app-pi.vercel.app/api/users/status',
         if (selected.length === 0) return;
         
         try {
-await axios.put('https://the-app-pi.vercel.app/api/users/status',
+await axios.put('/api/users/status',
                 { ids: selected, status: 'active' }, getConfig());
             setMessage({ type: 'success', text: 'Пользователи разблокированы' });
             fetchUsers();
@@ -129,7 +129,7 @@ await axios.put('https://the-app-pi.vercel.app/api/users/status',
         if (selected.length === 0) return;
         
         try {
-await axios.delete('https://the-app-pi.vercel.app/api/users',
+await axios.delete('/api/users',
                 { data: { ids: selected }, ...getConfig() });
             setMessage({ type: 'success', text: 'Пользователи удалены' });
             fetchUsers();
@@ -143,7 +143,7 @@ await axios.delete('https://the-app-pi.vercel.app/api/users',
     // important: Удаление неподтвержденных
     const handleDeleteUnverified = async () => {
         try {
-await axios.delete('https://the-app-pi.vercel.app/api/users/unverified', getConfig());
+await axios.delete('/api/users/unverified', getConfig());
             setMessage({ type: 'success', text: 'Неподтвержденные удалены' });
             fetchUsers();
             setSelected([]);

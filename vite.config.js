@@ -9,5 +9,14 @@ export default defineConfig({
   build: {
     minify: 'esbuild',
     sourcemap: false
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://the-app-pi.vercel.app',
+        changeOrigin: true,
+        secure: true
+      }
+    }
   }
 })
