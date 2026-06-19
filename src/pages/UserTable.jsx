@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { ResponsiveContainer, AreaChart, Area } from 'recharts';
 
 function UserTable({ onLogout }) {
     const [users, setUsers] = useState([]);
@@ -129,6 +130,30 @@ function UserTable({ onLogout }) {
 
     const formatDateTime = (dateStr) => (dateStr ? new Date(dateStr).toLocaleString('ru-RU') : '-');
 
+    const createUserSparklineData = (user) => {
+        const seed = Number(user.id) || user.email?.length || 7;
+        const base = user.status === 'active' ? 9 : user.status === 'blocked' ? 4 : 6;
+        return Array.from({ length: 12 }, (_, i) => ({
+            v: Math.max(1, base + Math.round(Math.sin((i + seed) * 0.9) * 2) + ((seed + i) % 3))
+        }));
+    };
+
+    const renderLastSeenCell = (user) => {
+        const series = createUserSparklineData(user);
+        return (
+            <div className="min-w-[140px]">
+                <div className="text-xs sm:text-sm text-gray-700">{formatDateTime(user.last_login)}</div>
+                <div className="h-8 mt-1">
+                    <ResponsiveContainer width="100%" height="100%">
+                        <AreaChart data={series}>
+                            <Area type="monotone" dataKey="v" stroke="#3b82f6" fill="#bfdbfe" strokeWidth={1.5} />
+                        </AreaChart>
+                    </ResponsiveContainer>
+                </div>
+            </div>
+        );
+    };
+
     const getUserStatusClass = (status) => {
         if (status === 'active') return 'text-green-600 font-medium';
         if (status === 'blocked') return 'text-red-600 font-medium';
@@ -155,11 +180,11 @@ function UserTable({ onLogout }) {
             )}
 
             <div className="mb-4 overflow-x-auto">
-                <div className="flex w-max flex-nowrap items-center gap-2">
+                <div className="flex w-max flex-nowrap items-center gap-1.5 sm:gap-2">
                     <button
                         onClick={blockSelectedUsers}
                         disabled={selected.length === 0}
-                        className="px-3 py-2 rounded-md bg-yellow-500 text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="px-2 py-1.5 text-xs sm:text-sm sm:px-3 sm:py-2 rounded-md bg-yellow-500 text-white disabled:opacity-50 disabled:cursor-not-allowed"
                         title="Заблокировать выбранных пользователей"
                     >
                         Block
@@ -168,7 +193,7 @@ function UserTable({ onLogout }) {
                     <button
                         onClick={unblockSelectedUsers}
                         disabled={selected.length === 0}
-                        className="px-3 py-2 rounded-md border border-gray-300 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="px-2 py-1.5 text-xs sm:text-sm sm:px-3 sm:py-2 rounded-md border border-gray-300 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                         title="Разблокировать выбранных пользователей"
                         aria-label="Unblock selected users"
                     >
@@ -178,7 +203,7 @@ function UserTable({ onLogout }) {
                     <button
                         onClick={deleteSelectedUsers}
                         disabled={selected.length === 0}
-                        className="px-3 py-2 rounded-md border border-gray-300 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="px-2 py-1.5 text-xs sm:text-sm sm:px-3 sm:py-2 rounded-md border border-gray-300 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                         title="Удалить выбранных пользователей"
                         aria-label="Delete selected users"
                     >
@@ -187,7 +212,7 @@ function UserTable({ onLogout }) {
 
                     <button
                         onClick={deleteUnverifiedUsers}
-                        className="px-3 py-2 rounded-md border border-gray-300 bg-white hover:bg-gray-50"
+                        className="px-2 py-1.5 text-xs sm:text-sm sm:px-3 sm:py-2 rounded-md border border-gray-300 bg-white hover:bg-gray-50"
                         title="Удалить всех неподтверждённых пользователей"
                         aria-label="Delete unverified users"
                     >
@@ -196,11 +221,12 @@ function UserTable({ onLogout }) {
 
                     <button
                         onClick={() => (typeof onLogout === 'function' ? onLogout() : handleLogout())}
-                        className="px-3 py-2 rounded-md bg-red-600 text-white hover:bg-red-700"
+                        className="px-2 py-1.5 text-xs sm:text-sm sm:px-3 sm:py-2 rounded-md bg-red-600 text-white hover:bg-red-700 whitespace-nowrap"
                         title="Выйти из аккаунта"
                         aria-label="Logout"
                     >
-                        Выйти из аккаунта
+                        <span className="sm:hidden">Выйти</span>
+                        <span className="hidden sm:inline">Выйти из аккаунта</span>
                     </button>
                 </div>
             </div>
@@ -243,7 +269,7 @@ function UserTable({ onLogout }) {
                                     <td className="px-4 py-3 text-left align-middle">{u.email}</td>
                                     <td className={`px-4 py-3 text-left align-middle ${getUserStatusClass(u.status)}`}>{u.status}</td>
                                     <td className="px-4 py-3 text-left align-middle">{formatDateTime(u.created_at)}</td>
-                                    <td className="px-4 py-3 text-left align-middle">{formatDateTime(u.last_login)}</td>
+                                    <td className="px-4 py-3 text-left align-middle">{renderLastSeenCell(u)}</td>
                                 </tr>
                             );
                         })}

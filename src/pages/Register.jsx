@@ -5,34 +5,25 @@ import axios from 'axios';
 function Register() {
     const [formData, setFormData] = useState({ name: '', email: '', password: '' });
     const [error, setError] = useState('');
-    const [success, setSuccess] = useState(false);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (loading) return;
+        setError('');
+        setLoading(true);
+
         try {
             await axios.post('https://serverusers-87tl.onrender.com/api/register', formData);
-            setSuccess(true);
-            setTimeout(() => navigate('/login'), 2000);
+            navigate('/login?registered=true', { replace: true });
         } catch (err) {
             const errorMsg = err.response?.data?.error;
             setError(typeof errorMsg === 'string' ? errorMsg : 'Ошибка регистрации');
+        } finally {
+            setLoading(false);
         }
     };
-
-    if (success) {
-        return (
-            <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-                <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6 sm:p-8 text-center">
-                    <div className="bg-green-100 text-green-700 p-4 sm:p-6 rounded-lg text-base sm:text-lg">
-                        ✅ Регистрация успешна!
-                        <br/>
-                        <span className="text-sm">Перенаправление на страницу входа...</span>
-                    </div>
-                </div>
-            </div>
-        );
-    }
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
@@ -90,9 +81,10 @@ function Register() {
                     
                     <button 
                         type="submit" 
-                        className="w-full bg-green-600 text-white font-semibold py-3 sm:py-4 px-4 rounded-lg hover:bg-green-700 text-base sm:text-lg"
+                        disabled={loading}
+                        className="w-full bg-green-600 text-white font-semibold py-3 sm:py-4 px-4 rounded-lg hover:bg-green-700 text-base sm:text-lg disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        Зарегистрироваться
+                        {loading ? 'Регистрация...' : 'Зарегистрироваться'}
                     </button>
                 </form>
                 
