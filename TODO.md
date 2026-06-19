@@ -1,12 +1,5 @@
-- [x] Исправить импорты в `src/App.jsx` с `./components/*` на `./pages/*`
-- [x] Установить зависимость `react-router-dom`
-- [x] Установить зависимость `axios`
-- [x] Проверить сборку командой `npm run build`
-- [x] Исправить lint-ошибки в `src/pages/Login.jsx`
-- [x] Исправить lint-ошибки в `src/pages/Register.jsx`
-- [x] Исправить lint-ошибки в `src/pages/UserTable.jsx`
-- [x] Проверить `npm run lint`
-- [x] Повторно проверить `npm run build`
-- [x] Обновить TODO со статусом выполнения
-- [x] Исправить esbuild версию в package.json для решения проблемы с peer dependency
-- [x] Обновить API эндпоинты во всех файлах с относительных на абсолютные URL
+- [ ] Rename `UserTable` function names to be explicit and intention-revealing.
+- [ ] Update all internal call sites after renaming.
+- [ ] Add horizontal scroll behavior for toolbar action buttons on small screens (iPhone-safe).
+- [ ] Run lint to verify no warnings/errors.
+- [ ] Summarize updated condition compliance.

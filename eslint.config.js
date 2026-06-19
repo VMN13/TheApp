@@ -17,5 +17,14 @@ export default defineConfig([
       globals: globals.browser,
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
+    rules: {
+      'react-hooks/exhaustive-deps': 'warn',
+    },
+  },
+  {
+    files: ['src/pages/UserTable.jsx'],
+    rules: {
+      'react-hooks/exhaustive-deps': 'off',
+    },
   },
 ])

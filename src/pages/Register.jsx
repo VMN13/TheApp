@@ -11,10 +11,10 @@ function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-await axios.post('https://serverusers-87tl.onrender.com/api/register', formData);
+            await axios.post('https://serverusers-87tl.onrender.com/api/register', formData);
             setSuccess(true);
             setTimeout(() => navigate('/login'), 2000);
-} catch (err) {
+        } catch (err) {
             const errorMsg = err.response?.data?.error;
             setError(typeof errorMsg === 'string' ? errorMsg : 'Ошибка регистрации');
         }

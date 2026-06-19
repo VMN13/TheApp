@@ -13,31 +13,26 @@ function Login({ onLogin }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
-        
-        // Валидация
+
         if (!formData.email || !formData.password) {
             setError('Заполните все поля');
             return;
         }
-        
+
         try {
-            console.log("Отправляем:", formData);
-const response = await axios.post('https://serverusers-87tl.onrender.com/api/login', formData);
-            console.log("Ответ:", response.data);
-            
+            const response = await axios.post('https://serverusers-87tl.onrender.com/api/login', formData);
             const { token, name, status } = response.data;
-            
+
             if (!token) {
                 setError('Токен не получен');
                 return;
             }
-            
+
             localStorage.setItem('token', token);
             localStorage.setItem('user', JSON.stringify({ name, status }));
             onLogin({ name, status });
             navigate('/');
-} catch (err) {
-            console.log("Ошибка:", err.response?.data || err.message);
+        } catch (err) {
             const errorMsg = err.response?.data?.error;
             setError(typeof errorMsg === 'string' ? errorMsg : 'Ошибка входа');
         }
