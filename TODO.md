@@ -1,5 +1,0 @@
-- [ ] Rename `UserTable` function names to be explicit and intention-revealing.
-- [ ] Update all internal call sites after renaming.
-- [ ] Add horizontal scroll behavior for toolbar action buttons on small screens (iPhone-safe).
-- [ ] Run lint to verify no warnings/errors.
-- [ ] Summarize updated condition compliance.
