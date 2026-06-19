@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-function UserTable() {
+function UserTable({ onLogout }) {
     const [users, setUsers] = useState([]);
     const [selected, setSelected] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -192,6 +192,15 @@ function UserTable() {
                         aria-label="Delete unverified users"
                     >
                         🧹
+                    </button>
+
+                    <button
+                        onClick={() => (typeof onLogout === 'function' ? onLogout() : handleLogout())}
+                        className="px-3 py-2 rounded-md bg-red-600 text-white hover:bg-red-700"
+                        title="Выйти из аккаунта"
+                        aria-label="Logout"
+                    >
+                        Выйти из аккаунта
                     </button>
                 </div>
             </div>

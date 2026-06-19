@@ -39,9 +39,9 @@ function Login({ onLogin }) {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-            <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6 sm:p-8">
-                <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-center text-gray-800">Вход</h1>
+        <div className="min-h-[calc(100vh-120px)] sm:min-h-screen flex items-center justify-center bg-gray-100 px-4 py-2 sm:p-4">
+            <div className="w-full max-w-md bg-white rounded-lg shadow-md p-4 sm:p-8">
+                <h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-center text-gray-800">Вход</h1>
                 
                 {verified && (
                     <div className="bg-green-100 text-green-700 p-3 rounded mb-4">
@@ -56,7 +56,7 @@ function Login({ onLogin }) {
                 )}
                 
                 <form onSubmit={handleSubmit}>
-                    <div className="mb-4 sm:mb-6">
+                    <div className="mb-3 sm:mb-6">
                         <label className="block text-gray-700 text-sm sm:font-semibold mb-2">
                             Email
                         </label>
@@ -70,7 +70,7 @@ function Login({ onLogin }) {
                         />
                     </div>
                     
-                    <div className="mb-6 sm:mb-8">
+                    <div className="mb-4 sm:mb-8">
                         <label className="block text-gray-700 text-sm sm:font-semibold mb-2">
                             Пароль
                         </label>
@@ -86,13 +86,13 @@ function Login({ onLogin }) {
                     
                     <button 
                         type="submit" 
-                        className="w-full bg-blue-600 text-white font-semibold py-3 sm:py-4 px-4 rounded-lg hover:bg-blue-700 text-base sm:text-lg"
+                        className="w-full bg-blue-600 text-white font-semibold py-2.5 sm:py-4 px-4 rounded-lg hover:bg-blue-700 text-sm sm:text-lg"
                     >
                         Войти
                     </button>
                 </form>
                 
-                <p className="mt-6 sm:mt-8 text-center text-sm sm:text-base text-gray-600">
+                <p className="mt-4 sm:mt-8 text-center text-sm sm:text-base text-gray-600">
                     Нет аккаунта?{' '}
                     <Link to="/register" className="text-blue-600 hover:underline font-semibold">
                         Регистрация
