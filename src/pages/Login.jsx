@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
-import axios from 'axios';
+import { api, getApiErrorMessage } from '../api';
 
 function Login({ onLogin }) {
     const [formData, setFormData] = useState({ email: '', password: '' });
@@ -20,7 +20,7 @@ function Login({ onLogin }) {
         }
 
         try {
-            const response = await axios.post('https://serverusers-87tl.onrender.com/api/login', formData);
+            const response = await api.post('/login', formData);
             const { token, name, status } = response.data;
 
             if (!token) {
@@ -33,14 +33,7 @@ function Login({ onLogin }) {
             onLogin({ name, status });
             navigate('/');
         } catch (err) {
-            const errorMsg = err.response?.data?.error;
-
-            if (err.response?.status === 403 && typeof errorMsg === 'string') {
-                setError(errorMsg);
-                return;
-            }
-
-            setError(typeof errorMsg === 'string' ? errorMsg : 'Ошибка входа');
+            setError(getApiErrorMessage(err, 'Ошибка входа'));
         }
     };
 

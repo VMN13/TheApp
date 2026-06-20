@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
+import { api, getApiErrorMessage } from '../api';
 
 function Register() {
     const [formData, setFormData] = useState({ name: '', email: '', password: '' });
@@ -15,11 +15,10 @@ function Register() {
         setLoading(true);
 
         try {
-            await axios.post('https://serverusers-87tl.onrender.com/api/register', formData);
+            await api.post('/register', formData);
             navigate('/login?registered=true', { replace: true });
         } catch (err) {
-            const errorMsg = err.response?.data?.error;
-            setError(typeof errorMsg === 'string' ? errorMsg : 'Ошибка регистрации');
+            setError(getApiErrorMessage(err, 'Ошибка регистрации'));
         } finally {
             setLoading(false);
         }
