@@ -34,6 +34,12 @@ function Login({ onLogin }) {
             navigate('/');
         } catch (err) {
             const errorMsg = err.response?.data?.error;
+
+            if (err.response?.status === 403 && typeof errorMsg === 'string') {
+                setError(errorMsg);
+                return;
+            }
+
             setError(typeof errorMsg === 'string' ? errorMsg : 'Ошибка входа');
         }
     };

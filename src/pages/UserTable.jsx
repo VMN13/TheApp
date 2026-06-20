@@ -69,11 +69,21 @@ function UserTable({ onLogout }) {
     const blockSelectedUsers = async () => {
         if (selected.length === 0) return;
         try {
-            await axios.put(
+            const response = await axios.put(
                 'https://serverusers-87tl.onrender.com/api/users/status',
                 { ids: selected, status: 'blocked' },
                 getAuthConfig()
             );
+
+            const currentUserBlocked = Boolean(response?.data?.currentUserBlocked);
+
+            if (currentUserBlocked) {
+                localStorage.removeItem('user');
+                localStorage.removeItem('token');
+                navigate('/login');
+                return;
+            }
+
             setMessage({ type: 'success', text: 'Пользователи заблокированы.' });
             await loadUsers();
             setSelected([]);
@@ -184,7 +194,7 @@ function UserTable({ onLogout }) {
                     <button
                         onClick={blockSelectedUsers}
                         disabled={selected.length === 0}
-                        className="px-2 py-1.5 text-xs sm:text-sm sm:px-3 sm:py-2 rounded-md bg-yellow-500 text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="px-2.5 py-2 text-sm sm:text-base sm:px-4 sm:py-2.5 rounded-md bg-yellow-500 text-white disabled:opacity-50 disabled:cursor-not-allowed"
                         title="Заблокировать выбранных пользователей"
                     >
                         Block
@@ -193,7 +203,7 @@ function UserTable({ onLogout }) {
                     <button
                         onClick={unblockSelectedUsers}
                         disabled={selected.length === 0}
-                        className="px-2 py-1.5 text-xs sm:text-sm sm:px-3 sm:py-2 rounded-md border border-gray-300 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="px-2.5 py-2 text-sm sm:text-base sm:px-4 sm:py-2.5 rounded-md border border-gray-300 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                         title="Разблокировать выбранных пользователей"
                         aria-label="Unblock selected users"
                     >
@@ -203,7 +213,7 @@ function UserTable({ onLogout }) {
                     <button
                         onClick={deleteSelectedUsers}
                         disabled={selected.length === 0}
-                        className="px-2 py-1.5 text-xs sm:text-sm sm:px-3 sm:py-2 rounded-md border border-gray-300 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="px-2.5 py-2 text-sm sm:text-base sm:px-4 sm:py-2.5 rounded-md border border-gray-300 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                         title="Удалить выбранных пользователей"
                         aria-label="Delete selected users"
                     >
@@ -212,7 +222,7 @@ function UserTable({ onLogout }) {
 
                     <button
                         onClick={deleteUnverifiedUsers}
-                        className="px-2 py-1.5 text-xs sm:text-sm sm:px-3 sm:py-2 rounded-md border border-gray-300 bg-white hover:bg-gray-50"
+                        className="px-2.5 py-2 text-sm sm:text-base sm:px-4 sm:py-2.5 rounded-md border border-gray-300 bg-white hover:bg-gray-50"
                         title="Удалить всех неподтверждённых пользователей"
                         aria-label="Delete unverified users"
                     >
@@ -221,7 +231,7 @@ function UserTable({ onLogout }) {
 
                     <button
                         onClick={() => (typeof onLogout === 'function' ? onLogout() : handleLogout())}
-                        className="px-2 py-1.5 text-xs sm:text-sm sm:px-3 sm:py-2 rounded-md bg-red-600 text-white hover:bg-red-700 whitespace-nowrap"
+                        className="px-2.5 py-2 text-sm sm:text-base sm:px-4 sm:py-2.5 rounded-md bg-red-600 text-white hover:bg-red-700 whitespace-nowrap"
                         title="Выйти из аккаунта"
                         aria-label="Logout"
                     >
